@@ -21,7 +21,7 @@ API desenvolvida em **NestJS** para controle da utilização dos automóveis de 
 
 ### Utilização de automóveis (`usages`)
 - `POST /usages/start` — Criar um registro de utilização (data início, motorista, veículo, motivo)
-- `PATCH /usages/end/:usageId` — Finalizar uma utilização (registrar data de término)
+- `PUT /usages/end/:usageId` — Finalizar uma utilização (registrar data de término)
 - `GET /usages` — Listar registros de utilização com dados do motorista e do veículo
 
 ---

@@ -22,13 +22,13 @@ export class DriverService {
       return this.drivers;
     }
 
-    return this.drivers.filter((d) =>
-      d.name.toLowerCase().includes(filter.name.toLowerCase()),
+    return this.drivers.filter((driver) =>
+      driver.name.toLowerCase().includes(filter.name.toLowerCase()),
     );
   }
 
   findOne(id: string): Driver {
-    const driver = this.drivers.find((d) => d.id === id);
+    const driver = this.drivers.find((driver) => driver.id === id);
 
     if (!driver) {
       throw new NotFoundException(`Driver with id: ${id} not found`);
@@ -45,7 +45,7 @@ export class DriverService {
   }
 
   remove(id: string): void {
-    const index = this.drivers.findIndex((d) => d.id === id);
+    const index = this.drivers.findIndex((driver) => driver.id === id);
 
     if (index === -1) {
       throw new NotFoundException(`Driver with id: ${id} not found`);

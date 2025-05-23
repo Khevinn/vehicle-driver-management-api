@@ -18,7 +18,7 @@ export class VehicleService {
 
   create(createVehicleDto: CreateVehicleDto): Vehicle {
     const plateExists = this.vehicles.some(
-      (v) => v.plate === createVehicleDto.plate,
+      (vehicle) => vehicle.plate === createVehicleDto.plate,
     );
 
     if (plateExists) {
@@ -39,15 +39,15 @@ export class VehicleService {
       throw new Error('Vehicle repository not initialized');
     }
 
-    return this.vehicles.filter((v) => {
-      const isColorMatch = !filter.color || v.color === filter.color;
-      const isBrandMatch = !filter.brand || v.brand === filter.brand;
+    return this.vehicles.filter((vehicle) => {
+      const isColorMatch = !filter.color || vehicle.color === filter.color;
+      const isBrandMatch = !filter.brand || vehicle.brand === filter.brand;
       return isColorMatch && isBrandMatch;
     });
   }
 
   findOne(id: string): Vehicle {
-    const vehicle = this.vehicles.find((v) => v.id === id);
+    const vehicle = this.vehicles.find((vehicle) => vehicle.id === id);
 
     if (!vehicle) {
       throw new NotFoundException(`Vehicle with id: ${id} not found`);
@@ -62,7 +62,8 @@ export class VehicleService {
     // Só verifica a placa se ela estiver presente no DTO
     if (updateVehicleDto.plate && updateVehicleDto.plate !== vehicle.plate) {
       const plateExists = this.vehicles.some(
-        (v) => v.id !== id && v.plate === updateVehicleDto.plate,
+        (vehicle) =>
+          vehicle.id !== id && vehicle.plate === updateVehicleDto.plate,
       );
       if (plateExists) {
         throw new BadRequestException(
@@ -77,7 +78,7 @@ export class VehicleService {
   }
 
   remove(id: string): void {
-    const index = this.vehicles.findIndex((v) => v.id === id);
+    const index = this.vehicles.findIndex((vehicle) => vehicle.id === id);
 
     if (index === -1) {
       throw new NotFoundException(`Vehicle with id: ${id} not found`);

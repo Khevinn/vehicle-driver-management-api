@@ -23,7 +23,7 @@ export class UsagesService {
     const driver = this.driversService.findOne(startUsageDto.driverId);
 
     const vehicleInUse = this.usages.find(
-      (u) => u.vehicleId === vehicle.id && !u.endDate,
+      (usage) => usage.vehicleId === vehicle.id && !usage.endDate,
     );
 
     if (vehicleInUse) {
@@ -31,7 +31,7 @@ export class UsagesService {
     }
 
     const driverInUse = this.usages.find(
-      (u) => u.driverId === driver.id && !u.endDate,
+      (usage) => usage.driverId === driver.id && !usage.endDate,
     );
 
     if (driverInUse) {
@@ -51,7 +51,7 @@ export class UsagesService {
   }
 
   endVehicleUsage(usageId: string): Usage {
-    const usage = this.usages.find((u) => u.id === usageId);
+    const usage = this.usages.find((usage) => usage.id === usageId);
 
     if (!usage) {
       throw new NotFoundException(`Usage with id: ${usageId} not found`);
@@ -75,16 +75,16 @@ export class UsagesService {
     endDate?: Date;
     reason: string;
   }> {
-    return this.usages.map((u) => {
-      const driver = this.driversService.findOne(u.driverId);
-      const vehicle = this.vehicleService.findOne(u.vehicleId);
+    return this.usages.map((usage) => {
+      const driver = this.driversService.findOne(usage.driverId);
+      const vehicle = this.vehicleService.findOne(usage.vehicleId);
       return {
-        id: u.id,
+        id: usage.id,
         driverName: driver?.name ?? 'Unknown Drive',
         brand: vehicle?.brand ?? 'Unknown Vehicle',
-        startDate: u.startDate,
-        endDate: u.endDate,
-        reason: u.reason,
+        startDate: usage.startDate,
+        endDate: usage.endDate,
+        reason: usage.reason,
       };
     });
   }

@@ -1,85 +1,82 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Sistema para controlar a utilização dos automóveis
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API desenvolvida em **NestJS** para controle da utilização dos automóveis de uma empresa.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Principais Rotas da API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Automóveis (`vehicle`)
+- `POST /vehicle` — Cadastrar um novo automóvel
+- `GET /vehicle` — Listar automóveis (com filtros opcionais: `color`, `brand`)
+- `GET /vehicle/:id` — Recuperar automóvel pelo ID
+- `PUT /vehicle/:id` — Atualizar automóvel pelo ID
+- `DELETE /vehicle/:id` — Excluir automóvel pelo ID
 
-## Project setup
+### Motoristas (`driver`)
+- `POST /driver` — Cadastrar um novo motorista
+- `GET /driver` — Listar motoristas (com filtro opcional: `name`)
+- `GET /driver/:id` — Recuperar motorista pelo ID
+- `PUT /driver/:id` — Atualizar motorista pelo ID
+- `DELETE /driver/:id` — Excluir motorista pelo ID
 
-```bash
+### Utilização de automóveis (`usages`)
+- `POST /usages/start` — Criar um registro de utilização (data início, motorista, veículo, motivo)
+- `PATCH /usages/end/:usageId` — Finalizar uma utilização (registrar data de término)
+- `GET /usages` — Listar registros de utilização com dados do motorista e do veículo
+
+---
+
+## 📌 Tecnologias
+
+- Node.js
+- NestJS
+- Swagger (para documentação da API)
+- Persistência em memória (sem banco de dados)
+- Jest (testes unitários)
+
+---
+
+## Como executar
+
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior recomendada)
+- npm
+
+### 1. Instalar dependências:
+ ```bash
 $ npm install
 ```
+1.1. Se preferir executar o projeto em uma porta alternativa a **3000**(porta padrão), basta criar o arquivo **.env** na raiz do projeto e setar a variável **PORT** com o valor desejado.
 
-## Compile and run the project
+### 2. Inicie o servidor
 
+- Execute normalmente (sem reinicialização automática):
 ```bash
-# development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
-
-## Run tests
-
+- Execute em modo de observação (reinicialização automática em caso de alterações):
 ```bash
-# unit tests
+$ npm run start:dev
+```
+### 3. Acesse a API em http://localhost:3000
+
+## 🛠️ Testes
+
+- Execute testes unitários usando Jest:
+
+```sh
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Resources
+- Verifique a cobertura dos testes nos arquivos:
+```sh
+$ npx jest --verbose --coverage
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## 📜 Documentação da API Swagger
+Assim que o projeto estiver em execução, acesse:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Com o swagger é possível simular as requisições, está tudo tipado e com exemplos, mas se preferir pode chamar via postman ou qualquer outra alternativa que realize chamadas HTTP.
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+http://localhost:3000/WebApi
